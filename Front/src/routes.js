@@ -1,10 +1,10 @@
 import Home from './pages/home';
-import Login from './pages/login';
+import Search from './pages/search';
 
 export default [
     {
-        path: "/login",
-        component: Login
+        path: "/search",
+        component: Search
     },
     {
         path: "/home",
