@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloController {
+public class FavorisController {
 
     AdminsRepository adminsRepository;
 
-    @GetMapping("/helloWorld")
+    @GetMapping("/getFavorisByName")
     public String getHelloWorld(){
         System.out.println("GetHelloWolrd");
         return "HelloWorld !";
