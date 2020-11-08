@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloController {
+public class ArtistsController {
 
     AdminsRepository adminsRepository;
 
-    @GetMapping("/helloWorld")
+    @GetMapping("/getArtistByName")
     public String getHelloWorld(){
         System.out.println("GetHelloWolrd");
         return "HelloWorld !";

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DatabaseSettingsState">
+    <option name="database" value="Dizify" />
+    <option name="databaseDriverToJarPath">
+      <map>
+        <entry key="Mysql-6.0.6" value="$USER_HOME$/.Jpa Support/driver_vendor/Mysql-6.0.6.jar" />
+      </map>
+    </option>
+    <option name="url" value="jdbc:mysql://localhost:3306/Dizify" />
+  </component>
+</project>

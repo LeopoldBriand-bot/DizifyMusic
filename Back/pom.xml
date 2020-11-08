@@ -25,6 +25,25 @@
             <version>2.3.5.RELEASE</version>
         </dependency>
 
+<!--SWAGGER-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+<!--SWAGGER-UI-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
 <!--SPRINGBOOT-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,6 +70,32 @@
             <artifactId>mariadb-java-client</artifactId>
             <version>1.5.7</version>
         </dependency>
+
+<!--REPOSITORY-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+
+<!--ANNOTATION : @Data (getter, setter, constructors)-->
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>provided</scope>
+        </dependency>
+
+<!--ANNOTATION : @Table, @Entity, @Id, @GeneratedValue, @Column-->
+        <!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+
 
 
     </dependencies>
