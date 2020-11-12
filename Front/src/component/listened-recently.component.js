@@ -54,7 +54,7 @@ export default function RecentlyListened() {
               {
                 resolve: slidesToShowPlugin,
                 options: {
-                  numberOfSlides: 0,
+                  numberOfSlides: 3,
                 },
               },
             ]}
