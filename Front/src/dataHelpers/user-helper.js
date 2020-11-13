@@ -2,10 +2,13 @@ export default class UserHelper {
     constructor() {
 
     }
-    connect() {
-        return {}
+    connectUser(user) {
+        // TODO : appel BDD connexion user
+        // TODO : recuperation token si valide tout mettre dans store
+
+        console.log(user);
     }
-    disconnect() {
+    disconnectUSer() {
         return {}
     }
     getFavorites(userId) {

@@ -12,16 +12,21 @@ import Menu from '@material-ui/core/Menu';
 import { makeStyles } from '@material-ui/core/styles';
 import MusicBar from "./musicbar.component";
 import AudioPlayer from "material-ui-audio-player";
+import SignUp from './sign-up.component';
+import Login from './login.component';
 
 const NavBar = (props) => {
     // TODO: Use store to get auth informations
-    const [auth, setAuth] = React.useState(true);
+    const [auth, setAuth] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const userOpened = Boolean(anchorEl);
     const drawerWidth = 240;
     const handleDrawerOpen = () => {
       props.changeOpen(true);
     };
+    const [signUp, setSignUp] = React.useState(false);
+    const [login, setLogin] = React.useState(false);
+
     const useStyles = makeStyles((theme) => ({
         root: {
           flexGrow: 1,
@@ -58,9 +63,15 @@ const NavBar = (props) => {
 
     // TODO: open login form
     const onConnect = (event) => {
-      setAuth(event.target.checked);
-      setAuth(true);
+      // setAuth(event.target.checked);
+      // setAuth(true);
+      setLogin(true)
     };
+    
+    // TODO : open sign in form
+    const onSignUp = () => {
+      setSignUp(true)
+    }
   
     const handleMenu = (event) => {
       setAnchorEl(event.currentTarget);
@@ -95,9 +106,11 @@ const NavBar = (props) => {
                     Dizify Music
                 </Typography>
                 {!auth && ( <div>
-                    <Button color="inherit">Sign In</Button>
+                    <Button color="inherit" onClick={onSignUp}>Sign Up</Button>
                     <Button color="inherit" onClick={onConnect}>Login</Button>
                 </div>)}
+                <SignUp open={signUp} setOpen={setSignUp} setAuth={setAuth}/>
+                <Login open={login} setOpen={setLogin} setAuth={setAuth}/>                
                 {auth && (
                 <div>
                     <IconButton
