@@ -1,8 +1,9 @@
+import Fuse from 'fuse.js';
 export default class SongHelper {
     constructor() {
-
+        
     }
-    getRecentlyListenedSong() {
+    getAllSongs() {
         return [{
             name:'Harder, Better, Faster, Stronger', 
             artist:'Daft Punk', 
@@ -24,5 +25,37 @@ export default class SongHelper {
             album:'Blue print', 
             image:'https://api.deezer.com/album/302046/image'
         }]
+    }
+    getRecentlyListenedSong() {
+        return [{
+            id: '1',
+            name:'Harder, Better, Faster, Stronger', 
+            artist:'Daft Punk', 
+            album:'Discovery', 
+            image:'https://api.deezer.com/album/302127/image'
+        },{
+            id:'2',
+            name:'Stop The Tribal War (Remastered 2000)', 
+            artist:'Johnny Clarke', 
+            album:'Rockers Time Now', 
+            image:'https://api.deezer.com/album/302129/image'
+        },{
+            id:'3',
+            name:'Darling Darling (Live 1992)', 
+            artist:'Mano Negra', 
+            album:'Best Of', 
+            image:'https://api.deezer.com/album/302054/image'
+        }]
+    }
+    search(keywords) {
+        const fuse = new Fuse(this.getAllSongs(), {
+            keys: [
+              'name',
+            ],
+            includeScore: true
+          });
+        return fuse.search(keywords).map(song => {
+            return song.item;
+        });
     }
 }

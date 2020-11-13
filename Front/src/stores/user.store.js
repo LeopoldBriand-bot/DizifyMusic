@@ -32,7 +32,7 @@ const reducer = (state, action) => {
        case 'disconnect':
        return disconnect(state, action);
        case 'isConnected':
-       return isTokenValid(state.authToken);
+       return state.authToken;
        default:
        return state;
    }
