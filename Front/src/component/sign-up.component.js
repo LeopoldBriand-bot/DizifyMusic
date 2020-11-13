@@ -41,40 +41,37 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp(props) {
   const classes = useStyles();
 
-    const [isFirstName, setIsFirstName] = React.useState(false);
-    const [isLastName, setIsLastName] = React.useState(false);
+    // TODO : nickname
+    // TODO : bcript
+    const [isNickname, setIsNickname] = React.useState(false);
     const [isPassword, setIsPassword] = React.useState(false);
     const [isEmail, setIsEmail] = React.useState(false);
     const [isSubmit, setIsSubmit] = React.useState(false);
-    const [firstName, setFirstName] = React.useState('');
-    const [lastName, setLastName] = React.useState('');
+    const [nickname, setNickname] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
-  const regexFirstName = new RegExp("^(?!\s*$).+");
-  const regexLastName = new RegExp("^(?!\s*$).+");
+  const regexNickname = new RegExp("^(?!\s*$).+");
   const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const regexPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
   const handleClose = () => {
     props.setOpen(false);
     setIsSubmit(false);
-    setIsFirstName(false);
-    setIsLastName(false);
+    setIsNickname(false);
     setIsEmail(false);
     setIsPassword(false);
   };
 
   const onSubmit = () => {
 
-    setFirstName(Boolean(regexFirstName.exec(firstName)));
-    setLastName(Boolean(regexLastName.exec(lastName)));
+    setNickname(Boolean(regexNickname.exec(nickname)));
     setIsEmail(Boolean(regexEmail.exec(email)));
     setIsPassword(Boolean(regexPassword.exec(password)));
 
-    if (Boolean(regexFirstName.exec(firstName)) && Boolean(regexLastName.exec(lastName)) && Boolean(regexEmail.exec(email)) && Boolean(regexPassword.exec(password))) {
+    if (Boolean(regexNickname.exec(nickname)) && Boolean(regexEmail.exec(email)) && Boolean(regexPassword.exec(password))) {
         const helper = new UserHelper();
-        helper.createUser({firstName, lastName, email, password});
+        helper.createUser({nickname, email, password});
         props.setAuth(true);
         handleClose()
     } else {
@@ -83,12 +80,8 @@ export default function SignUp(props) {
 
   };
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
+  const handleNicknameChange = (event) => {
+    setNickname(event.target.value);
   };
   
   const handleEmailChange = (event) => {
@@ -116,34 +109,19 @@ export default function SignUp(props) {
         </Typography>
         <form className={classes.form}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
-                error={isSubmit && !isFirstName}
-                helperText={isSubmit && !isFirstName ? ('FistName is empty') : null}
-                autoComplete="fname"
-                name="firstName"
+                error={isSubmit && !isNickname}
+                helperText={isSubmit && !isNickname ? ('Nickname is empty') : null}
+                name="nickname"
                 variant="outlined"
                 required
                 fullWidth
-                id="firstName"
-                label="First Name"
+                id="nickname"
+                label="Nickname"
                 autoFocus
-                onChange={handleFirstNameChange}
+                onChange={handleNicknameChange}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                error={isSubmit && !isLastName}
-                helperText={isSubmit && !isLastName ? ('LastName is empty') : null}
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                onChange={handleLastNameChange}
-            />
             </Grid>
             <Grid item xs={12}>
               <TextField
