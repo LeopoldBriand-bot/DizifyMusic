@@ -1,18 +1,16 @@
 package application.controller;
 
-import application.dao.AdminsRepository;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PlaylistsController {
 
-    AdminsRepository adminsRepository;
-
-    @GetMapping("/getPlaylistByName")
-    public String getHelloWorld(){
-        System.out.println("GetHelloWolrd");
-        return "HelloWorld !";
-    }
+//    AdminsRepository adminsRepository;
+//
+//    @GetMapping("/getPlaylistByName")
+//    public String getPlaylistByName(){
+//        System.out.println("GetHelloWolrd");
+//        return "HelloWorld !";
+//    }
 
 }

@@ -7,6 +7,7 @@
         <entry key="Mysql-6.0.6" value="$USER_HOME$/.Jpa Support/driver_vendor/Mysql-6.0.6.jar" />
       </map>
     </option>
+    <option name="language" value="fr-FR" />
     <option name="url" value="jdbc:mysql://localhost:3306/Dizify" />
   </component>
 </project>
