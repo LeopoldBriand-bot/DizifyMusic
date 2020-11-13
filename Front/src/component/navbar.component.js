@@ -109,8 +109,8 @@ const NavBar = (props) => {
                     <Button color="inherit" onClick={onSignUp}>Sign Up</Button>
                     <Button color="inherit" onClick={onConnect}>Login</Button>
                 </div>)}
-                <SignUp open={signUp} setOpen={setSignUp} setAuth={setAuth}/>
-                <Login open={login} setOpen={setLogin} setAuth={setAuth}/>                
+                <SignUp open={signUp} setOpen={setSignUp} setAuth={setAuth} openLogin={setLogin}/>
+                <Login open={login} setOpen={setLogin} setAuth={setAuth} openSignUp={setSignUp}/>                
                 {auth && (
                 <div>
                     <IconButton
