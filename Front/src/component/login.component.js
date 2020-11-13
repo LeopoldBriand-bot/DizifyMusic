@@ -83,6 +83,11 @@ export default function Login(props) {
     setPassword(event.target.value);
   };
 
+  const goToSignUp = () => {
+    handleClose()
+    props.openSignUp(true);
+  }
+
   const body = (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -131,10 +136,10 @@ export default function Login(props) {
           >
             Sign In
           </Button>
-          <Grid container>
+          <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link onClick={goToSignUp} variant="body2">
+                Don't have an account ? Sign Up
               </Link>
             </Grid>
           </Grid>
