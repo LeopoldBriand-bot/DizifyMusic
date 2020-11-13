@@ -5,7 +5,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MusicCard from "./music-card.component";
+import MusicCard from "./cards/music-card.component";
 import SongHelper from "../dataHelpers/song-helper";
 import Carousel, { slidesToShowPlugin, arrowsPlugin } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
@@ -14,7 +14,6 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
 const useStyles = makeStyles((theme) => ({
-
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
