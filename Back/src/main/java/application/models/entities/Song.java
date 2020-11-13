@@ -4,12 +4,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
 
-@Table(name = "albums")
 @Entity
+@Table(name = "songs")
 @Data
-public class Albums implements Serializable {
+public class Song implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -21,13 +20,13 @@ public class Albums implements Serializable {
     @Column(name = "artist_id")
     private Integer artistId;
 
-    @Column(name = "title")
-    private String title;
+    @Column(name = "album_id")
+    private Integer albumId;
 
-    @Column(name = "date")
-    private Timestamp date;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "img")
-    private String img;
+    @Column(name = "duration")
+    private String duration;
 
 }

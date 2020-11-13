@@ -9,18 +9,18 @@ import java.io.Serializable;
 @Entity
 @Table(name = "admins")
 @Data
-public class Admins implements Serializable {
+public class Admin implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-//    @JsonProperty
-    private Integer id;
+    @JsonProperty
+    public Integer id;
 
     @Column(name = "user_id")
     @JsonProperty
-    private Integer userId;
+    public Integer userId;
 
 }

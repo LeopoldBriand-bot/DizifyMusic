@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "playlists")
 @Data
-@Table(name = "artists")
-public class Artists implements Serializable {
+public class Playlist implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -17,10 +17,10 @@ public class Artists implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "id_playlist")
+    private Integer idPlaylist;
 
-    @Column(name = "img")
-    private String img;
+    @Column(name = "song_id")
+    private Integer songId;
 
 }

@@ -3,12 +3,12 @@ package application.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AlbumsController {
+public class FavoriteController {
 
 //    AdminsRepository adminsRepository;
 
-//    @GetMapping("/getAlbumByName")
-//    public String getAlbumByName(){
+//    @GetMapping("/getFavorisByName")
+//    public String getFavorisByName(){
 //        System.out.println("GetHelloWolrd");
 //        return "HelloWorld !";
 //    }

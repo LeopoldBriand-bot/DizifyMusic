@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Data
 @Table(name = "playlists_join")
-public class PlaylistsJoin implements Serializable {
+public class PlaylistJoin implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

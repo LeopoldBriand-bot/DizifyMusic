@@ -3,12 +3,12 @@ package application.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class FavorisController {
+public class PlaylistController {
 
 //    AdminsRepository adminsRepository;
-
-//    @GetMapping("/getFavorisByName")
-//    public String getFavorisByName(){
+//
+//    @GetMapping("/getPlaylistByName")
+//    public String getPlaylistByName(){
 //        System.out.println("GetHelloWolrd");
 //        return "HelloWorld !";
 //    }

@@ -4,29 +4,30 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 
+@Table(name = "albums")
 @Entity
-@Table(name = "songs")
 @Data
-public class Songs implements Serializable {
+public class Album implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    public Integer id;
 
     @Column(name = "artist_id")
-    private Integer artistId;
+    public Integer artistId;
 
-    @Column(name = "album_id")
-    private Integer albumId;
+    @Column(name = "title")
+    public String title;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "date")
+    public Timestamp date;
 
-    @Column(name = "duration")
-    private String duration;
+    @Column(name = "img")
+    private String img;
 
 }

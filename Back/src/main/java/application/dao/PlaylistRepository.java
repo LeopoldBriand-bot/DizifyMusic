@@ -1,11 +1,11 @@
 package application.dao;
 
-import application.models.entities.Admins;
+import application.models.entities.Playlist;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AdminsRepository extends JpaRepository<Admins, Integer>, JpaSpecificationExecutor<Admins> {
+public interface PlaylistRepository extends JpaRepository<Playlist, Integer>, JpaSpecificationExecutor<Playlist> {
 
 }
