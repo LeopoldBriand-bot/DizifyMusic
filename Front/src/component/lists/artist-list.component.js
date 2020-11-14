@@ -15,7 +15,7 @@ export default function ArtistList(props) {
   return (
     <div className={classes.root}>
           {props.artists.map((row) => (
-            <ArtistCard artist={row} key={row.id}></ArtistCard>
+            <ArtistCard artist={row} key={row.id} fav={props.fav}></ArtistCard>
           ))} 
     </div>
 

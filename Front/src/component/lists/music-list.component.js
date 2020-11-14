@@ -1,14 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import IconButton from '@material-ui/core/IconButton';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import UserHelper from "../../dataHelpers/user-helper";
+
+const userHelper = new UserHelper();
 
 const useStyles = makeStyles({
   table: {
@@ -17,12 +20,14 @@ const useStyles = makeStyles({
 });
 
 const handleClick = (event) => {
-    console.log(event)
+  console.log(event);
 };
 
 export default function MusicList(props) {
   const classes = useStyles();
-
+  const addToFavorites = () => {
+    userHelper.addToFavorites("album", props.id);
+  };
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -43,9 +48,16 @@ export default function MusicList(props) {
               <TableCell align="right">{row.album}</TableCell>
               <TableCell align="right">{row.artist}</TableCell>
               <TableCell align="right">
-                <IconButton aria-label="Options" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                    <MoreHorizIcon/>
-                </IconButton>
+                {props.fav && (
+                  <IconButton
+                    aria-label="Options"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={addToFavorites}
+                  >
+                    <FavoriteIcon />
+                  </IconButton>
+                )}
               </TableCell>
             </TableRow>
           ))}
