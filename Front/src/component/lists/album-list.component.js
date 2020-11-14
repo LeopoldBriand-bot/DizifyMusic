@@ -15,7 +15,7 @@ export default function AlbumList(props) {
   return (
     <div className={classes.root}>
           {props.albums.map((row) => (
-            <AlbumCard album={row} key={row.id}></AlbumCard>
+            <AlbumCard album={row} key={row.id} fav={props.fav}></AlbumCard>
           ))} 
     </div>
 

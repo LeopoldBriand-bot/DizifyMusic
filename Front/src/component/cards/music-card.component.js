@@ -10,6 +10,10 @@ import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import UserHelper from "../../dataHelpers/user-helper";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+
+const userHelper = new UserHelper();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,11 +44,17 @@ const useStyles = makeStyles((theme) => ({
 export default function MusicCard(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const addToFavorites = () => {
+    userHelper.addToFavorites("song", props.id);
     setAnchorEl(null);
   };
 
@@ -77,8 +87,7 @@ export default function MusicCard(props) {
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleClose}>Add to a playlist</MenuItem>
-                <MenuItem onClick={handleClose}>Go to Album</MenuItem>
-                <MenuItem onClick={handleClose}>Go to Artist</MenuItem>
+                <MenuItem onClick={addToFavorites}>Add to favorites</MenuItem>
             </Menu>
         </div>
       </div>
