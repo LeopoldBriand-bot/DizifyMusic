@@ -23,9 +23,6 @@ public class AdminController {
     @PostMapping("/save")
     public void save(@RequestBody Admin admin){ adminService.save(admin); }
 
-//    @PutMapping("/update")
-//    public void update(@RequestBody Admin admin){ adminService.update(admin); }
-
     @PostMapping("/delete")
     public void delete(@RequestBody Admin admin){ adminService.delete(admin.id); }
 

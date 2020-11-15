@@ -26,9 +26,6 @@ public class AlbumController {
     @PostMapping("/save")
     public void save(@RequestBody Album album){ albumService.save(album); }
 
-//    @PutMapping("/update")
-//    public void update(@RequestBody Album album){ albumService.update(album); }
-
     @PostMapping("/delete")
     public void delete(@RequestBody Album album){ albumService.delete(album.id); }
 

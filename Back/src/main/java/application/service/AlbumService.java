@@ -21,8 +21,6 @@ public class AlbumService {
 
     public void save(Album album){ albumRepository.save(album); }
 
-//    public void update(Album album) { albumRepository.updateOne(album); }
-
     public void delete(Integer id) { albumRepository.deleteById(id);}
 
 }
