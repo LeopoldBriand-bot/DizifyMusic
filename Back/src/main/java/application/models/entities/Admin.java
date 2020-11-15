@@ -1,6 +1,5 @@
 package application.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,11 +15,9 @@ public class Admin implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    @JsonProperty
     public Integer id;
 
     @Column(name = "user_id")
-    @JsonProperty
     public Integer userId;
 
 }

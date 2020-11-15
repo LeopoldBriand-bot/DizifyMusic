@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Table(name = "favoris")
 @Data
@@ -15,7 +16,7 @@ public class Favorite implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    public Integer id;
 
     @Column(name = "user_id")
     private Integer userId;

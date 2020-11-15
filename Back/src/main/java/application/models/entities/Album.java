@@ -19,13 +19,13 @@ public class Album implements Serializable {
     public Integer id;
 
     @Column(name = "artist_id")
-    public Integer artistId;
+    private Integer artistId;
 
     @Column(name = "title")
-    public String title;
+    private String title;
 
     @Column(name = "date")
-    public Timestamp date;
+    private Timestamp date;
 
     @Column(name = "img")
     private String img;

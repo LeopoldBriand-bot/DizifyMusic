@@ -1,16 +1,30 @@
 package application.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import application.models.entities.Playlist;
+import application.service.PlaylistService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@RequestMapping("/playlist")
 @RestController
 public class PlaylistController {
+    
 
-//    AdminsRepository adminsRepository;
-//
-//    @GetMapping("/getPlaylistByName")
-//    public String getPlaylistByName(){
-//        System.out.println("GetHelloWolrd");
-//        return "HelloWorld !";
-//    }
+        @Autowired
+        PlaylistService playlistService;
 
-}
+        @GetMapping("/getAll")
+        public List<Playlist> getAll(){ return playlistService.getAll(); }
+
+        @GetMapping("/getById")
+        public Playlist getById(Integer id){ return playlistService.getById(id); }
+
+        @PostMapping("/save")
+        public void save(@RequestBody Playlist playlist){ playlistService.save(playlist); }
+
+        @PostMapping("/delete")
+        public void delete(@RequestBody Playlist playlist){ playlistService.delete(playlist.id); }
+
+    }

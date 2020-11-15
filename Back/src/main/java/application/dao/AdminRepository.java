@@ -8,7 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Integer>, JpaSpecificationExecutor<Admin> {
 
-//    @Modifying
-//    @Query("update Admin admin set ")
-//    int updateOne(Admin adminDB);
 }
