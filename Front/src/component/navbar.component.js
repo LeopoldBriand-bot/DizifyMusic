@@ -10,6 +10,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { makeStyles } from '@material-ui/core/styles';
+import MusicBar from "./musicbar.component";
+import AudioPlayer from "material-ui-audio-player";
 
 const NavBar = (props) => {
     // TODO: Use store to get auth informations
@@ -23,6 +25,7 @@ const NavBar = (props) => {
     const useStyles = makeStyles((theme) => ({
         root: {
           flexGrow: 1,
+          
         },
         hide: {
           display: 'none',
@@ -32,6 +35,7 @@ const NavBar = (props) => {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
           }),
+          height: 130,
         },
         appBarShift: {
           width: `calc(100% - ${drawerWidth}px)`,
@@ -40,6 +44,7 @@ const NavBar = (props) => {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
           }),
+          height: 130,
         },
         menuButton: {
           marginRight: theme.spacing(2),
@@ -126,6 +131,7 @@ const NavBar = (props) => {
                 </div>
                 )}
             </Toolbar>
+            <MusicBar open={props.open}></MusicBar>
         </AppBar>
         </div>
     )

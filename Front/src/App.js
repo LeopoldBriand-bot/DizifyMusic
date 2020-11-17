@@ -16,11 +16,11 @@ const styles = {
   content: {
     flexGrow: 1,
     marginLeft: 0,
-    marginTop: 70,
+    marginTop: 140,
   },
   contentShift: {
     marginLeft: drawerWidth,
-    marginTop: 70,
+    marginTop: 140,
   },
 };
 
