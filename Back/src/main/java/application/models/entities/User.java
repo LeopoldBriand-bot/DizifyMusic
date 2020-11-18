@@ -16,9 +16,9 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    public Integer id;
 
-    @Column(name = "nick_name")
+    @Column(name = "nick_name", nullable = false)
     private String nickName;
 
     @Column(name = "avatar_img")
@@ -27,7 +27,10 @@ public class User implements Serializable {
     @Column(name = "birth_date")
     private Timestamp birthDate;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
 }
