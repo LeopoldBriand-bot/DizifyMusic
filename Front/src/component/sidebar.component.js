@@ -14,6 +14,9 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
+import UserHelper from "../dataHelpers/user-helper";
+
+const userHelper = new UserHelper();
 
 const drawerWidth = 240;
 
@@ -35,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
   },
@@ -60,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PermanentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
-
+  const userId = "DREFDFG25ihF5"
   const handleDrawerClose = () => {
     props.changeOpen(false);
   };
@@ -120,9 +122,9 @@ export default function PermanentDrawerLeft(props) {
             </ListItemIcon>
             <ListItemText primary="PlayLists" />
           </ListItem>
-          {["Playlist1", "Playlist2", "Playlist3"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
+          {userHelper.getPlaylists(userId).map((playlist, index) => (
+            <ListItem button key={playlist.name} component={Link} to={`/playlist/${playlist.id}`}>
+              <ListItemText primary={playlist.name} />
             </ListItem>
           ))}
         </List>
