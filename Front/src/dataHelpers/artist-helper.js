@@ -1,31 +1,38 @@
 import Fuse from 'fuse.js';
+
+import axios from 'axios';
+
+import UtilsHelper from './utils-helper'
+
+const utilsHelper = new UtilsHelper();
 export default class ArtistHelper {
+    baseURI = "http://localhost:8080";
+
+    headers = {
+        "Access-Control-Allow-Origin": "*"
+    };
+
     constructor() {
-        
+
     }
-    getAllArtists() {
-        return [
-        {
-            id: "27",
-            name: "Daft Punk",
-            image:'https://api.deezer.com/artist/27/image',
-        },{
-            id: "10370",
-            name: "Johnny Clarke",
-            image:'https://api.deezer.com/artist/10370/image'
-        },{
-            id: "211337",
-            name: "Imhotep",
-            image:'https://api.deezer.com/artist/211337/image'
-        }]
+    async getAllArtists() {
+
+        // Call HTTP 
+        let artists = [];
+        await axios.get(this.baseURI + `/artist/getAll`, { headers: this.headers })
+            .then(res => {
+                artists = res.data.map(e => utilsHelper.mapArtists(e));
+            })
+        return artists;
+
     }
-    search(keywords) {
-        const fuse = new Fuse(this.getAllArtists(), {
+    async search(keywords) {
+        const fuse = new Fuse(await this.getAllArtists(), {
             keys: [
-              'name',
+                'name',
             ],
             includeScore: true
-          });
+        });
         return fuse.search(keywords).map(artist => {
             return artist.item;
         });

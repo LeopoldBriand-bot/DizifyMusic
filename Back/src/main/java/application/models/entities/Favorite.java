@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 
 @Entity
@@ -21,13 +22,13 @@ public class Favorite implements Serializable {
     @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "artist_id")
-    private Integer artistId;
+    @ManyToOne
+    private Song song;
 
-    @Column(name = "album_id")
-    private Integer albumId;
+    @ManyToOne
+    private Artist artist;
 
-    @Column(name = "song_id")
-    private Integer songId;
+    @ManyToOne
+    private Album album;
 
 }

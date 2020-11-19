@@ -13,7 +13,20 @@ public class FavoriteService {
     @Autowired
     FavoriteRepository favoriteRepository;
 
+    public List<Favorite> getFavoriteSongs(){
+
+
+        return favoriteRepository.findAll();
+
+    }
+
+    public List<Favorite> getFavoriteAlbums(){ return favoriteRepository.findAll(); }
+
+    public List<Favorite> getFavoriteArtists(){ return favoriteRepository.findAll(); }
+
     public List<Favorite> getAll(){ return favoriteRepository.findAll(); }
+
+    public List<Favorite> getAllByUserId(Integer userId){ return favoriteRepository.findAllByUserId(userId); }
 
     public Favorite getById(Integer id) { return favoriteRepository.getOne(id); }
 

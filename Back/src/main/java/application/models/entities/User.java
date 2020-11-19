@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 @Entity
 @Table(name = "users")
@@ -32,5 +33,8 @@ public class User implements Serializable {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @OneToMany(mappedBy="userId")
+    private Collection<Favorite> favorites;
 
 }

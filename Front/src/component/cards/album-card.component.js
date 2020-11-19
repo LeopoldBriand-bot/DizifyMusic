@@ -39,7 +39,8 @@ const useStyles = makeStyles({
 export default function AlbumCard(props) {
   const classes = useStyles();
   const addToFavorites = () => {
-    userHelper.addToFavorites("album", props.id);
+    let userId = 1;
+    userHelper.addToFavorites("album", userId, props.album.id);
   };
   return (
     <Card className={classes.root}>
@@ -51,8 +52,8 @@ export default function AlbumCard(props) {
             title={props.album.title}
           />
         ) : (
-          <CircularProgress />
-        )}
+            <CircularProgress />
+          )}
         <div className={classes.details}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">

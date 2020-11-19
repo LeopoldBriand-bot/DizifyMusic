@@ -1,31 +1,38 @@
 import Fuse from 'fuse.js';
+
+import axios from 'axios';
+
+import UtilsHelper from './utils-helper'
+
+const utilsHelper = new UtilsHelper();
 export default class AlbumHelper {
+    baseURI = "http://localhost:8080";
+
+    headers = {
+        "Access-Control-Allow-Origin": "*"
+    };
+
     constructor() {
-        
+
     }
-    getAllAlbums() {
-        return [
-        {
-            id: "302127",
-            title: "Discovery",
-            image:'https://api.deezer.com/album/302127/image'
-        },{
-            id: "302129",
-            title: "Rockers Time Now", 
-            image:'https://api.deezer.com/album/302129/image'
-        },{
-            id: "302046",
-            title: "blue print",
-            image:'https://api.deezer.com/album/302046/image'
-        }]
+    async getAllAlbums() {
+
+        // Call HTTP 
+        let albums = [];
+        await axios.get(this.baseURI + `/album/getAll`, { headers: this.headers })
+            .then(res => {
+                albums = res.data.map(e => utilsHelper.mapAlbums(e));
+            })
+        return albums;
+
     }
-    search(keywords) {
-        const fuse = new Fuse(this.getAllAlbums(), {
+    async search(keywords) {
+        const fuse = new Fuse(await this.getAllAlbums(), {
             keys: [
-              'title',
+                'title',
             ],
             includeScore: true
-          });
+        });
         return fuse.search(keywords).map(album => {
             return album.item;
         });

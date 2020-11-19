@@ -12,7 +12,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
-import { withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const songHelper = new SongHelper();
 const albumHelper = new AlbumHelper();
@@ -34,17 +34,27 @@ class Search extends Component {
     }
   }
   search = (event) => {
-      this.setState({
-        songs: songHelper.search(event.target.value),
-        albums: albumHelper.search(event.target.value),
-        artists: artistHelper.search(event.target.value)
-      });
+    this.updateStateWithData(event.target.value);
   }
+
+  async updateStateWithData(keyWord) {
+    let songs = await songHelper.search(keyWord);
+    let albums = await albumHelper.search(keyWord);
+    let artists = await artistHelper.search(keyWord);
+    this.setState(
+      {
+        songs: songs,
+        albums: albums,
+        artists: artists
+      }
+    )
+  }
+
   render() {
     return (
       <div className={this.props.classes.root}>
         <div>
-          <SearchIcon/>
+          <SearchIcon />
           <InputBase
             placeholder="Search…"
             inputProps={{ 'aria-label': 'search' }}

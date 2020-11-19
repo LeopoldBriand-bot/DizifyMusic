@@ -17,16 +17,17 @@ public class Song implements Serializable {
     @Column(name = "id", nullable = false)
     public Integer id;
 
-    @Column(name = "artist_id")
-    private Integer artistId;
+    @OneToOne
+    private Artist artist;
 
-    @Column(name = "album_id")
-    private Integer albumId;
+    @OneToOne
+    private Album album;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "duration")
-    private String duration;
+    @Column(name = "music")
+    private String music;
+
 
 }
