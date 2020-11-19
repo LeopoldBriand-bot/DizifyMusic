@@ -1,7 +1,14 @@
+import bcrypt from 'bcryptjs';
+
 export default class UserHelper {
     constructor() {
 
     }
+
+    createUser(user) {
+        console.log(user);
+    }
+
     connectUser(user) {
         // TODO : appel BDD connexion user
         // TODO : recuperation token si valide tout mettre dans store
@@ -11,6 +18,17 @@ export default class UserHelper {
     disconnectUSer() {
         return {}
     }
+
+    encryptPassword(password) {
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(password, salt);
+        return hash
+    }
+
+    checkPassword(hash, bdd) {
+        return bcrypt.compareSync(hash, bdd)
+    }
+
     getFavorites(userId) {
         console.log(userId);
         return {
