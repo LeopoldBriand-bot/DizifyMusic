@@ -1,1 +1,7 @@
-﻿Back/target
+﻿*.class
+Back/.idea/workspace.xml
+Back/target/maven-status
+Back/target
+Back/.idea/libraries
+Back/.idea
+*.iml
