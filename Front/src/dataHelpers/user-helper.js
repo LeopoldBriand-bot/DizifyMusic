@@ -1,8 +1,12 @@
+
 import axios from 'axios';
 
 import UtilsHelper from './utils-helper'
 
 const utilsHelper = new UtilsHelper();
+
+import bcrypt from 'bcryptjs';
+
 
 export default class UserHelper {
 
@@ -16,13 +20,33 @@ export default class UserHelper {
     constructor() {
 
     }
-    connect() {
+
+    createUser(user) {
+        console.log(user);
+    }
+
+    connectUser(user) {
+        // TODO : appel BDD connexion user
+        // TODO : recuperation token si valide tout mettre dans store
+
+        console.log(user);
+    }
+    disconnectUSer() {
         return {}
     }
-    disconnect() {
-        return {}
+
+    encryptPassword(password) {
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(password, salt);
+        return hash
     }
-    async getFavorites(userId) {
+
+    checkPassword(hash, bdd) {
+        return bcrypt.compareSync(hash, bdd)
+    }
+
+    getFavorites(userId) {
+
         console.log(userId);
         // Call HTTP 
         let favorites = [];
