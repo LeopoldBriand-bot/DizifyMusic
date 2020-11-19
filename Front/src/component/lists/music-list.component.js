@@ -25,8 +25,9 @@ const handleClick = (event) => {
 
 export default function MusicList(props) {
   const classes = useStyles();
-  const addToFavorites = () => {
-    userHelper.addToFavorites("music", props.id);
+  const addToFavorites = (id) => {
+    let userId = 1;
+    userHelper.addToFavorites("song", userId, id);
   };
   return (
     <TableContainer component={Paper}>
@@ -53,7 +54,7 @@ export default function MusicList(props) {
                     aria-label="Options"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
-                    onClick={addToFavorites}
+                    onClick={() => addToFavorites(row.id)}
                   >
                     <FavoriteIcon />
                   </IconButton>

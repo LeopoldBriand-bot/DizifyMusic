@@ -41,7 +41,48 @@ export default class UserHelper {
             albums,
             artists
         }
+    }
 
+    addToFavorites(type, userId, id) {
+        console.log(type, userId, id);
+        switch (type) {
+            case "album":
+                axios.post(this.baseURI + `/favorite/save`, {
+                    userId: userId,
+                    artist: null,
+                    album: { id: id },
+                    song: null
+                }, { headers: this.headers })
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                break;
+            case "song":
+                axios.post(this.baseURI + `/favorite/save`, {
+                    userId: userId,
+                    artist: null,
+                    album: null,
+                    song: { id: id }
+                }, { headers: this.headers })
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                break;
+            case "artist":
+                axios.post(this.baseURI + `/favorite/save`, {
+                    userId: userId,
+                    artist: { id: id },
+                    album: null,
+                    song: null
+                }, { headers: this.headers })
+                    .then(res => {
+                        console.log(res.data);
+                    })
+                break;
 
+            default:
+                console.warn("type is not matching : 'album', 'artist' or 'song'");
+                break;
+        }
     }
 }

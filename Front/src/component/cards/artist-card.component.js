@@ -39,7 +39,8 @@ const useStyles = makeStyles({
 export default function ArtistCard(props) {
   const classes = useStyles();
   const addToFavorites = () => {
-    userHelper.addToFavorites("artist", props.id);
+    let userId = 1;
+    userHelper.addToFavorites("artist", userId, props.artist.id);
   };
 
   return (
@@ -52,8 +53,8 @@ export default function ArtistCard(props) {
             title={props.artist.name}
           />
         ) : (
-          <CircularProgress />
-        )}
+            <CircularProgress />
+          )}
         <div className={classes.details}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
