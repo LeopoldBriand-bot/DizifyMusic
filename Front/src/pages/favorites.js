@@ -8,7 +8,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
-import { withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const userHelper = new UserHelper();
 
@@ -21,13 +21,27 @@ const styles = {
 class Favorites extends Component {
   constructor() {
     super();
-    let userId = 'D58FGhe87'
+    let userId = 1;
+
     this.state = {
-      songs: userHelper.getFavorites(userId).songs,
-      artists: userHelper.getFavorites(userId).artists,
-      albums: userHelper.getFavorites(userId).albums
+      songs: [],
+      artists: [],
+      albums: []
     }
+    this.updateStateWithData(userId);
   }
+
+  async updateStateWithData(userId) {
+    let favorites = await userHelper.getFavorites(userId);
+    this.setState(
+      {
+        songs: favorites.songs,
+        artists: favorites.artists,
+        albums: favorites.albums
+      }
+    )
+  }
+
   render() {
     return (
       <div className={this.props.classes.root}>

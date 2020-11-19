@@ -17,7 +17,7 @@ public class Admin implements Serializable {
     @Column(name = "id", nullable = false)
     public Integer id;
 
-    @Column(name = "user_id")
-    public Integer userId;
+    @OneToOne
+    public User user;
 
 }

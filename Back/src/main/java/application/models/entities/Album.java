@@ -18,8 +18,8 @@ public class Album implements Serializable {
     @Column(name = "id", nullable = false)
     public Integer id;
 
-    @Column(name = "artist_id")
-    private Integer artistId;
+    @OneToOne
+    private Artist artist;
 
     @Column(name = "title")
     private String title;

@@ -26,7 +26,7 @@ const handleClick = (event) => {
 export default function MusicList(props) {
   const classes = useStyles();
   const addToFavorites = () => {
-    userHelper.addToFavorites("album", props.id);
+    userHelper.addToFavorites("music", props.id);
   };
   return (
     <TableContainer component={Paper}>
