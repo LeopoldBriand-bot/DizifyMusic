@@ -45,6 +45,35 @@ export default class UserHelper {
         return bcrypt.compareSync(hash, bdd)
     }
 
+    getPlaylistById(userId, playlistId) {
+        console.log(userId);
+        console.log(playlistId);
+        return {
+            songs: [{
+                name:'Harder, Better, Faster, Stronger', 
+                artist:'Daft Punk', 
+                album:'Discovery', 
+                image:'https://api.deezer.com/album/302127/image'
+            }]
+        }
+    }
+    getPlaylists(userId) {
+        console.log(userId);
+        return [
+            {
+                id: 12,
+                name: "Playlist12"
+            },
+            {
+                id: 10,
+                name: "Playlist12"
+            },
+            {
+                id: 15,
+                name: "Playlist15"
+            }
+        ]
+    }
     getFavorites(userId) {
 
         console.log(userId);
