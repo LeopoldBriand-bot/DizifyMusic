@@ -1,12 +1,9 @@
 
 import axios from 'axios';
-
 import UtilsHelper from './utils-helper'
-
-const utilsHelper = new UtilsHelper();
-
 import bcrypt from 'bcryptjs';
 
+const utilsHelper = new UtilsHelper();
 
 export default class UserHelper {
 
@@ -74,7 +71,19 @@ export default class UserHelper {
             }
         ]
     }
-    getFavorites(userId) {
+    addPlaylist(userId) {
+        console.log(userId)
+    }
+    removePlaylist(id) {
+        console.log(id)
+    }
+    addSongToPlaylist(songId, id) {
+        console.log(songId, id)
+    }
+    removeSongFromPlaylist(songId, id) {
+        console.log(songId, id)
+    }
+    async getFavorites(userId) {
 
         console.log(userId);
         // Call HTTP 
@@ -96,7 +105,7 @@ export default class UserHelper {
         }
     }
 
-    addToFavorites(type, userId, id) {
+    async addToFavorites(type, userId, id) {
         console.log(type, userId, id);
         switch (type) {
             case "album":
@@ -106,9 +115,6 @@ export default class UserHelper {
                     album: { id: id },
                     song: null
                 }, { headers: this.headers })
-                    .then(res => {
-                        console.log(res.data);
-                    })
                 break;
             case "song":
                 axios.post(this.baseURI + `/favorite/save`, {
@@ -117,9 +123,6 @@ export default class UserHelper {
                     album: null,
                     song: { id: id }
                 }, { headers: this.headers })
-                    .then(res => {
-                        console.log(res.data);
-                    })
                 break;
             case "artist":
                 axios.post(this.baseURI + `/favorite/save`, {
@@ -128,9 +131,6 @@ export default class UserHelper {
                     album: null,
                     song: null
                 }, { headers: this.headers })
-                    .then(res => {
-                        console.log(res.data);
-                    })
                 break;
 
             default:

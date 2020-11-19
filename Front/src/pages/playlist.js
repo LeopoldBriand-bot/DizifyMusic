@@ -30,7 +30,7 @@ class Playlist extends Component {
         <Typography className={this.props.classes.heading}>
           {this.state.name}
         </Typography>
-        <MusicList songs={this.state.songs} fav={true}></MusicList>
+        <MusicList songs={this.state.songs} fav={true} playlist={false}></MusicList>
       </div>
     );
   }

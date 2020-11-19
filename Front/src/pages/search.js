@@ -70,7 +70,7 @@ class Search extends Component {
             <Typography className={this.props.classes.heading}>Songs</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <MusicList songs={this.state.songs} fav={true}></MusicList>
+            <MusicList songs={this.state.songs} fav={true} playlist={true}></MusicList>
           </AccordionDetails>
         </Accordion>
         <Accordion>
