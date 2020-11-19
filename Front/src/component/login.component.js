@@ -66,9 +66,9 @@ export default function Login(props) {
 
     if (Boolean(regexEmail.exec(email)) && Boolean(regexPassword.exec(password))) {
         const helper = new UserHelper();
-        const bcryptPassword = helper.encryptPassword(password);
-        helper.connectUser({email, bcryptPassword});
-        // helper.connectUser({email, password});
+        // const bcryptPassword = helper.encryptPassword(password);
+        // helper.connectUser({email, bcryptPassword});
+        helper.connectUser({email, password});
         props.setAuth(true);
         setEmail('');
         setPassword('');

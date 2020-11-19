@@ -71,9 +71,9 @@ export default function SignUp(props) {
 
     if (Boolean(regexNickname.exec(nickname)) && Boolean(regexEmail.exec(email)) && Boolean(regexPassword.exec(password))) {
         const helper = new UserHelper();
-        const bcryptPassword = helper.encryptPassword(password);
-        helper.createUser({nickname, email, bcryptPassword});
-        // helper.createUser({nickname, email, password});
+        // const bcryptPassword = helper.encryptPassword(password);
+        // helper.createUser({nickname, email, bcryptPassword});
+        helper.createUser({nickname, email, password});
         props.setAuth(true);
         setNickname('');
         setEmail('');
