@@ -11,7 +11,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { makeStyles } from '@material-ui/core/styles';
 import MusicBar from "./musicbar.component";
-import AudioPlayer from "material-ui-audio-player";
 import SignUp from './sign-up.component';
 import Login from './login.component';
 

@@ -11,7 +11,7 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import UserHelper from "../../dataHelpers/user-helper";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import AddToPlaylist from "../add-to-playlist.component";
 
 const userHelper = new UserHelper();
 
@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MusicCard(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [addPlaylist, setAddPlaylist] = React.useState(false);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -54,8 +55,13 @@ export default function MusicCard(props) {
   };
 
   const addToFavorites = () => {
-    userHelper.addToFavorites("song", props.id);
+    let userId = 1;
+    userHelper.addToFavorites("song", userId, props.song.id);
     setAnchorEl(null);
+  };
+
+  const addToPlaylist = () => {
+    setAddPlaylist(true);
   };
 
   return (
@@ -86,7 +92,7 @@ export default function MusicCard(props) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>Add to a playlist</MenuItem>
+                <MenuItem onClick={addToPlaylist}>Add to a playlist</MenuItem>
                 <MenuItem onClick={addToFavorites}>Add to favorites</MenuItem>
             </Menu>
         </div>
@@ -96,6 +102,7 @@ export default function MusicCard(props) {
         image={props.song.image}
         title={props.song.album}
       />
+      <AddToPlaylist open={addPlaylist} setOpen={setAddPlaylist} songId={props.song.id}/> 
     </Card>
   );
 }

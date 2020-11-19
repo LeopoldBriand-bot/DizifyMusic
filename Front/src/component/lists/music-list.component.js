@@ -10,6 +10,9 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import UserHelper from "../../dataHelpers/user-helper";
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import AddToPlaylist from "../add-to-playlist.component";
 
 const userHelper = new UserHelper();
 
@@ -25,10 +28,25 @@ const handleClick = (event) => {
 
 export default function MusicList(props) {
   const classes = useStyles();
+  const [addPlaylist, setAddPlaylist] = React.useState(false);
+
   const addToFavorites = (id) => {
     let userId = 1;
     userHelper.addToFavorites("song", userId, id);
   };
+  const removeFromFavorites = (id) => {
+    let userId = 1;
+    userHelper.removeFromFavorites("song", userId, id);
+  };
+
+  const addToPlaylist = (id) => {
+    setAddPlaylist(true);
+  };
+  const removeFromPlaylist = (id) => {
+    let userId = 1;
+    userHelper.removeFromFavorites(userId, id);
+  };
+  
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -59,8 +77,40 @@ export default function MusicList(props) {
                     <FavoriteIcon />
                   </IconButton>
                 )}
+                {props.playlist && (
+                  <IconButton
+                    aria-label="Options"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={() => addToPlaylist(row.id)}
+                  >
+                    <PlaylistAddIcon />
+                  </IconButton>
+                )}
+                {!props.fav && (
+                  <IconButton
+                    aria-label="Options"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={() => removeFromFavorites(row.id)}
+                  >
+                    <HighlightOffIcon />
+                  </IconButton>
+                )}
+                {!props.playlist && (
+                  <IconButton
+                    aria-label="Options"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={() => removeFromPlaylist(row.id)}
+                  >
+                    <HighlightOffIcon />
+                  </IconButton>
+                )}
               </TableCell>
+              <AddToPlaylist open={addPlaylist} setOpen={setAddPlaylist} songId={row.id}/> 
             </TableRow>
+            
           ))}
         </TableBody>
       </Table>

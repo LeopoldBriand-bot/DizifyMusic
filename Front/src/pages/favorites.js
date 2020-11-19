@@ -54,7 +54,7 @@ class Favorites extends Component {
             <Typography className={this.props.classes.heading}>Songs</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <MusicList songs={this.state.songs} fav={false}></MusicList>
+            <MusicList songs={this.state.songs} fav={false} playlist={true}></MusicList>
           </AccordionDetails>
         </Accordion>
         <Accordion>
