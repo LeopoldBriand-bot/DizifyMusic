@@ -15,6 +15,9 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
 import UserHelper from "../dataHelpers/user-helper";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import AddPlaylist from "./add-playlist.component";
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 const userHelper = new UserHelper();
 
@@ -62,10 +65,19 @@ const useStyles = makeStyles((theme) => ({
 export default function PermanentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const userId = "DREFDFG25ihF5"
+  const userId = 1
+  const [addPlaylist, setAddPlaylist] = React.useState(false);
   const handleDrawerClose = () => {
     props.changeOpen(false);
   };
+
+  const openPlaylist = () => {
+    setAddPlaylist(true);
+  }
+
+  const removePlaylist = (id) => {
+    userHelper.removePlaylist(id);
+  }
 
   return (
     <div className={classes.root}>
@@ -116,15 +128,22 @@ export default function PermanentDrawerLeft(props) {
         </List>
         <Divider />
         <List>
-          <ListItem button>
+          <ListItem>
             <ListItemIcon>
               <QueueMusicIcon />
             </ListItemIcon>
             <ListItemText primary="PlayLists" />
+            <ListItemIcon button onClick={openPlaylist}>
+              <AddCircleOutlineIcon />
+            </ListItemIcon>
+            <AddPlaylist open={addPlaylist} setOpen={setAddPlaylist}/>
           </ListItem>
           {userHelper.getPlaylists(userId).map((playlist, index) => (
             <ListItem button key={playlist.name} component={Link} to={`/playlist/${playlist.id}`}>
               <ListItemText primary={playlist.name} />
+              <ListItemIcon button onClick={() => removePlaylist(playlist.id)}>
+                <DeleteForeverIcon/>
+              </ListItemIcon>
             </ListItem>
           ))}
         </List>

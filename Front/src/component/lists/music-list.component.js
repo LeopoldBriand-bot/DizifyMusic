@@ -22,10 +22,6 @@ const useStyles = makeStyles({
   },
 });
 
-const handleClick = (event) => {
-  console.log(event);
-};
-
 export default function MusicList(props) {
   const classes = useStyles();
   const [addPlaylist, setAddPlaylist] = React.useState(false);
@@ -44,7 +40,7 @@ export default function MusicList(props) {
   };
   const removeFromPlaylist = (id) => {
     let userId = 1;
-    userHelper.removeFromFavorites(userId, id);
+    userHelper.removeSongFromPlaylist(userId, id);
   };
   
   return (

@@ -71,7 +71,7 @@ export default class UserHelper {
             }
         ]
     }
-    addPlaylist(userId) {
+    addPlaylist(userId, name) {
         console.log(userId)
     }
     removePlaylist(id) {
