@@ -1,12 +1,15 @@
 package application.controller;
 
 import application.models.entities.Playlist;
+import application.models.entities.PlaylistJoin;
+import application.models.entities.Song;
 import application.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RequestMapping("/playlist")
 @RestController
 public class PlaylistController {
@@ -14,6 +17,9 @@ public class PlaylistController {
 
         @Autowired
         PlaylistService playlistService;
+
+        @GetMapping("/getAllSongByPlaylistJoinId")
+        public List<Song> getAllSongByPlaylistJoinId(Integer playlistJoinId){ return playlistService.getAllSongByPlaylistJoinId(playlistJoinId); }
 
         @GetMapping("/getAll")
         public List<Playlist> getAll(){ return playlistService.getAll(); }
