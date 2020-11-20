@@ -11,9 +11,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link } from "react-router-dom";
 import { Button } from '@material-ui/core';
+import CommonDataManager from '../stores/data.store'
 
 const userHelper = new UserHelper();
-const userId = 1
+
 const styles = {
   heading: {
     fontSize: 15,
@@ -31,14 +32,15 @@ class Playlist extends Component {
   }
 
   refreshPlaylist = async () => {
-    let playlists = await userHelper.getPlaylists(userId);
+    console.log("12", CommonDataManager.getInstance().getUserID());
+    let playlists = await userHelper.getPlaylists(CommonDataManager.getInstance().getUserID());
     this.setState({
       playlistsToRender: playlists
     });
   }
 
   addPlaylist = async (name) => {
-    await userHelper.addPlaylist(userId, name);
+    await userHelper.addPlaylist(CommonDataManager.getInstance().getUserID(), name);
     this.refreshPlaylist();
   }
 

@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Modal } from '@material-ui/core';
 import UserHelper from '../dataHelpers/user-helper';
+import CommonDataManager from '../stores/data.store'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +51,7 @@ export default function Login(props) {
 
   const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const regexPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
- 
+
   const handleClose = () => {
     props.setOpen(false);
     setIsSubmit(false);
@@ -58,31 +59,39 @@ export default function Login(props) {
     setIsPassword(false);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
 
     setIsEmail(Boolean(regexEmail.exec(email)));
     setIsPassword(Boolean(regexPassword.exec(password)));
 
 
     if (Boolean(regexEmail.exec(email)) && Boolean(regexPassword.exec(password))) {
-        const helper = new UserHelper();
-        // const bcryptPassword = helper.encryptPassword(password);
-        // helper.connectUser({email, bcryptPassword});
-        helper.connectUser({email, password});
-        props.setAuth(true);
-        setEmail('');
-        setPassword('');
-        handleClose();
-    } else {
-        setIsSubmit(true);
-    }
+      const helper = new UserHelper();
+      // const bcryptPassword = helper.encryptPassword(password);
+      // helper.createUser({nickname, email, bcryptPassword});
 
+      let response = await helper.connectUser({ email, password });
+      if (response.email == email) {
+        CommonDataManager.getInstance().setStore({
+          userId: response.id,
+          username: response.username,
+          roles: response.roles,
+          authToken: response.accessToken
+        })
+        props.setAuth(true);
+      }
+      handleClose();
+    } else {
+      setIsSubmit(true);
+    }
+    setEmail('');
+    setPassword('');
   };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
-  
+
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };

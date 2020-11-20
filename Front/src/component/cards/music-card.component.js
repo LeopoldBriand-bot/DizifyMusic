@@ -12,6 +12,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import UserHelper from "../../dataHelpers/user-helper";
 import AddToPlaylist from "../add-to-playlist.component";
+import CommonDataManager from '../../stores/data.store'
 
 const userHelper = new UserHelper();
 
@@ -55,7 +56,7 @@ export default function MusicCard(props) {
   };
 
   const addToFavorites = () => {
-    let userId = 1;
+    let userId = CommonDataManager.getInstance().getUserID();
     userHelper.addToFavorites("song", userId, props.song.id);
     setAnchorEl(null);
   };
