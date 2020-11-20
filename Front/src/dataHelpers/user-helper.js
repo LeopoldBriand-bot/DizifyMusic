@@ -105,6 +105,7 @@ export default class UserHelper {
         //         name: "Playlist15"
         //     }
         // ]
+
     }
     async addPlaylist(userId, name) {
         await axios.post(this.baseURI + `/playlistJoin/save`,
@@ -138,12 +139,12 @@ export default class UserHelper {
 
     async getFavorites(userId) {
 
-        console.log(userId);
+        // console.log(userId);
         // Call HTTP 
         let favorites = [];
         await axios.get(this.baseURI + `/favorite/getAllByUserId?userId=${userId}`, { headers: this.headers })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 favorites = res.data;
             })
 
@@ -159,7 +160,7 @@ export default class UserHelper {
     }
 
     async addToFavorites(type, userId, id) {
-        console.log(type, userId, id);
+        // console.log(type, userId, id);
         switch (type) {
             case "album":
                 axios.post(this.baseURI + `/favorite/save`, {

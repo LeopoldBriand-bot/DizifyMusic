@@ -44,7 +44,26 @@ export default class SongHelper {
             artist: 'Mano Negra',
             album: 'Best Of',
             image: 'https://api.deezer.com/album/302054/image'
-        }]
+        },
+        {
+            id: '4',
+            name: 'Harder, Better, Faster, Stronger',
+            artist: 'Daft Punk',
+            album: 'Discovery',
+            image: 'https://api.deezer.com/album/302127/image'
+        }, {
+            id: '5',
+            name: 'Stop The Tribal War (Remastered 2000)',
+            artist: 'Johnny Clarke',
+            album: 'Rockers Time Now',
+            image: 'https://api.deezer.com/album/302129/image'
+        }, {
+            id: '6',
+            name: 'Darling Darling (Live 1992)',
+            artist: 'Mano Negra',
+            album: 'Best Of',
+            image: 'https://api.deezer.com/album/302054/image'
+        },]
     }
     async search(keywords) {
         const fuse = new Fuse(await this.getAllSongs(), {
