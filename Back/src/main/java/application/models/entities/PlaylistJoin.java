@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -25,4 +26,5 @@ public class PlaylistJoin implements Serializable {
 
     @Column(name = "is_public")
     private Boolean isPublic;
+
 }

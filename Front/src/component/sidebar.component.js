@@ -9,14 +9,11 @@ import ListItemText from "@material-ui/core/ListItemText";
 import WifiTetheringIcon from "@material-ui/icons/WifiTethering";
 import SearchIcon from "@material-ui/icons/Search";
 import HomeIcon from "@material-ui/icons/Home";
-import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
-import UserHelper from "../dataHelpers/user-helper";
-
-const userHelper = new UserHelper();
+import PlayListBar from "./playlistbar.component";
 
 const drawerWidth = 240;
 
@@ -62,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
 export default function PermanentDrawerLeft(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const userId = "DREFDFG25ihF5"
   const handleDrawerClose = () => {
     props.changeOpen(false);
   };
@@ -115,19 +111,7 @@ export default function PermanentDrawerLeft(props) {
           </ListItem>
         </List>
         <Divider />
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <QueueMusicIcon />
-            </ListItemIcon>
-            <ListItemText primary="PlayLists" />
-          </ListItem>
-          {userHelper.getPlaylists(userId).map((playlist, index) => (
-            <ListItem button key={playlist.name} component={Link} to={`/playlist/${playlist.id}`}>
-              <ListItemText primary={playlist.name} />
-            </ListItem>
-          ))}
-        </List>
+        <PlayListBar></PlayListBar>
       </Drawer>
     </div>
   );

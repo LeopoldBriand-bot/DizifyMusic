@@ -6,8 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Modal } from '@material-ui/core';
 import UserHelper from '../dataHelpers/user-helper';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
 
 const userHelper = new UserHelper();
 
@@ -37,50 +36,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddToPlaylist(props) {
+export default function AddPlaylist(props) {
   const userId = 1;
   const classes = useStyles();
-  const [playlistsToRender, setPlaylistsToRender] = React.useState([]);
-  const [playlist, setPlaylist] = React.useState([]);
-  const [openSelect, setOpenSelect] = React.useState(false);
-
-
-  const refreshPlaylist = async () => {
-    let playlists = await userHelper.getPlaylists(userId);
-    setPlaylistsToRender(playlists);
-  }
-
-  const addSongToPlaylist = async (songId, playlistId) => {
-    await userHelper.addSongToPlaylist(songId, playlistId);
-    refreshPlaylist();
-  }
-
-  const removePlaylist = async (id) => {
-    await userHelper.removePlaylist(id);
-    refreshPlaylist();
-  }
-
+  const [name, setName] = React.useState({});
 
   const handleClose = () => {
     props.setOpen(false);
   };
 
   const handleChange = (event) => {
-    setPlaylist(playlistsToRender.find((e) => e.id === event.target.value));
-  };
-
-  const handleCloseSelect = () => {
-    setOpenSelect(false);
-  };
-
-  const handleOpenSelect = () => {
-    refreshPlaylist();
-    setOpenSelect(true);
+    setName(event.target.value);
   };
 
   const onSubmit = () => {
-    if (playlist.id) {
-      addSongToPlaylist(props.songId, playlist.id)
+    if (name) {
+      props.callback(name);
       handleClose();
     }
   };
@@ -90,28 +61,19 @@ export default function AddToPlaylist(props) {
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Add music to playlist
+          Add playlist
         </Typography>
         <form className={classes.form}>
-          <Select
-            labelId="open-select-label"
-            id="open-select"
-            open={openSelect}
-            onClose={handleCloseSelect}
-            onOpen={handleOpenSelect}
-            value={playlist.songId}
+          <TextField
+            name="name"
+            variant="outlined"
+            required
+            fullWidth
+            id="name"
+            label="Name"
+            autoFocus
             onChange={handleChange}
-          >
-            {playlistsToRender.length == 0 &&
-              <MenuItem value="">
-                <em> </em>
-              </MenuItem>
-            }
-            {playlistsToRender.map((row) => (
-              <MenuItem value={row.id}>{row.name}</MenuItem>
-            ))}
-
-          </Select>
+          />
           <Button
             onClick={onSubmit}
             fullWidth
@@ -119,7 +81,7 @@ export default function AddToPlaylist(props) {
             color="primary"
             className={classes.submit}
           >
-            Choose
+            Create
           </Button>
         </form>
       </div>

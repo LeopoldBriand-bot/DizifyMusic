@@ -22,14 +22,10 @@ const useStyles = makeStyles({
   },
 });
 
-// const handleClick = (event) => {
-//   console.log(event);
-// };
-
 export default function MusicList(props) {
   const classes = useStyles();
   const [addPlaylist, setAddPlaylist] = React.useState(false);
-
+  const [modalPlaylistId, setModalPlaylistId] = React.useState(0);
   const addToFavorites = (id) => {
     let userId = 1;
     userHelper.addToFavorites("song", userId, id);
@@ -41,12 +37,14 @@ export default function MusicList(props) {
 
   const addToPlaylist = (id) => {
     setAddPlaylist(true);
+    setModalPlaylistId(id);
   };
   const removeFromPlaylist = (id) => {
     let userId = 1;
-    userHelper.removeFromFavorites(userId, id);
+    userHelper.removeSongFromPlaylist(userId, id);
+    props.callbackForPlaylist();
   };
-  
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -102,16 +100,16 @@ export default function MusicList(props) {
                     aria-label="Options"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
-                    onClick={() => removeFromPlaylist(row.id)}
+                    onClick={() => removeFromPlaylist(row.playlistId)}
                   >
                     <HighlightOffIcon />
                   </IconButton>
                 )}
               </TableCell>
-              <AddToPlaylist open={addPlaylist} setOpen={setAddPlaylist} songId={row.id}/> 
             </TableRow>
-            
+
           ))}
+          <AddToPlaylist open={addPlaylist} setOpen={setAddPlaylist} songId={modalPlaylistId} />
         </TableBody>
       </Table>
     </TableContainer>

@@ -42,47 +42,101 @@ export default class UserHelper {
         return bcrypt.compareSync(hash, bdd)
     }
 
-    getPlaylistById(userId, playlistId) {
-        // console.log(userId);
-        // console.log(playlistId);
-        return {
-            songs: [{
-                name:'Harder, Better, Faster, Stronger', 
-                artist:'Daft Punk', 
-                album:'Discovery', 
-                image:'https://api.deezer.com/album/302127/image'
-            }]
-        }
+    async getAllSongByPlaylistJoinId(userId, playlistId) {
+
+        // Call HTTP 
+        let songs = [];
+        await axios.get(this.baseURI + `/playlist/getAllSongByPlaylistJoinId?playlistJoinId=${playlistId}`, { headers: this.headers })
+            .then(res => {
+                songs = res.data;
+            })
+
+        return songs;
+
+        // return {
+        //     songs: [{
+        //         name: 'Harder, Better, Faster, Stronger',
+        //         artist: 'Daft Punk',
+        //         album: 'Discovery',
+        //         image: 'https://api.deezer.com/album/302127/image'
+        //     }]
+        // }
     }
-    getPlaylists(userId) {
-        // console.log(userId);
-        return [
+
+    async getPlaylistNameByPlaylistJoinId(userId, playlistId) {
+
+        // Call HTTP 
+        let playlist = {
+            id: 0,
+            userId: 0,
+            name: "Generic PlayList Name",
+            isPublic: false,
+        };
+        await axios.get(this.baseURI + `/playlistJoin/getById?id=${playlistId}`, { headers: this.headers })
+            .then(res => {
+                playlist = res.data;
+            })
+
+        return playlist;
+    }
+
+
+    async getPlaylists(userId) {
+        // Call HTTP 
+        let playlists = [];
+        await axios.get(this.baseURI + `/playlistJoin/getAllByUserId?userId=${userId}`, { headers: this.headers })
+            .then(res => {
+                playlists = res.data;
+            })
+        return playlists;
+
+
+        // return [
+        //     {
+        //         id: 12,
+        //         name: "Playlist12"
+        //     },
+        //     {
+        //         id: 10,
+        //         name: "Playlist12"
+        //     },
+        //     {
+        //         id: 15,
+        //         name: "Playlist15"
+        //     }
+        // ]
+
+    }
+    async addPlaylist(userId, name) {
+        await axios.post(this.baseURI + `/playlistJoin/save`,
             {
-                id: 12,
-                name: "Playlist12"
-            },
-            {
-                id: 10,
-                name: "Playlist13"
-            },
-            {
-                id: 15,
-                name: "Playlist15"
-            }
-        ]
+                userId: userId,
+                name: name,
+                isPublic: false
+            }, { headers: this.headers })
     }
-    addPlaylist(userId) {
-        console.log(userId)
+
+    async removePlaylist(id) {
+        await axios.post(this.baseURI + `/playlistJoin/delete`,
+            { id }, { headers: this.headers })
     }
-    removePlaylist(id) {
-        console.log(id)
-    }
-    addSongToPlaylist(songId, id) {
+
+    async addSongToPlaylist(songId, id) {
         console.log(songId, id)
+        await axios.post(this.baseURI + `/playlist/save`,
+            {
+                playlistJoin: { id: id },
+                song: { id: songId }
+            }, { headers: this.headers })
     }
-    removeSongFromPlaylist(songId, id) {
+
+    async removeSongFromPlaylist(songId, id) {
         console.log(songId, id)
+        await axios.post(this.baseURI + `/playlist/delete`,
+            { id }, { headers: this.headers })
     }
+
+
     async getFavorites(userId) {
 
         // console.log(userId);
