@@ -19,7 +19,7 @@ public class PlaylistController {
         PlaylistService playlistService;
 
         @GetMapping("/getAllSongByPlaylistJoinId")
-        public List<Song> getAllSongByPlaylistJoinId(Integer playlistJoinId){ return playlistService.getAllSongByPlaylistJoinId(playlistJoinId); }
+        public List<Playlist> getAllSongByPlaylistJoinId(Integer playlistJoinId){ return playlistService.getAllSongByPlaylistJoinId(playlistJoinId); }
 
         @GetMapping("/getAll")
         public List<Playlist> getAll(){ return playlistService.getAll(); }

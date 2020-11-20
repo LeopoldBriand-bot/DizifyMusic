@@ -41,8 +41,9 @@ export default function MusicList(props) {
   const removeFromPlaylist = (id) => {
     let userId = 1;
     userHelper.removeSongFromPlaylist(userId, id);
+    props.callbackForPlaylist();
   };
-  
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -98,15 +99,15 @@ export default function MusicList(props) {
                     aria-label="Options"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
-                    onClick={() => removeFromPlaylist(row.id)}
+                    onClick={() => removeFromPlaylist(row.playlistId)}
                   >
                     <HighlightOffIcon />
                   </IconButton>
                 )}
               </TableCell>
-              <AddToPlaylist open={addPlaylist} setOpen={setAddPlaylist} songId={row.id}/> 
+              <AddToPlaylist open={addPlaylist} setOpen={setAddPlaylist} songId={row.id} />
             </TableRow>
-            
+
           ))}
         </TableBody>
       </Table>

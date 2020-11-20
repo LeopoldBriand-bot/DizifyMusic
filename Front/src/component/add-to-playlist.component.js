@@ -12,44 +12,60 @@ import Select from '@material-ui/core/Select';
 const userHelper = new UserHelper();
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: '#ffffff',
-        position: 'absolute',
-        width: 400,
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-      },
-      avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-      },
-      form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
-      },
-      submit: {
-        margin: theme.spacing(3, 0, 2),
-      },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    background: '#ffffff',
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 export default function AddToPlaylist(props) {
-    const userId = 1;
+  const userId = 1;
   const classes = useStyles();
-  const [playlist, setPlaylist] = React.useState({});
+  const [playlistsToRender, setPlaylistsToRender] = React.useState([]);
+  const [playlist, setPlaylist] = React.useState([]);
   const [openSelect, setOpenSelect] = React.useState(false);
-  const playlists = userHelper.getPlaylists(userId);
+
+  const refreshPlaylist = async () => {
+    let playlists = await userHelper.getPlaylists(userId);
+    setPlaylistsToRender(playlists);
+  }
+
+  const addSongToPlaylist = async (songId, playlistId) => {
+    await userHelper.addSongToPlaylist(songId, playlistId);
+    this.refreshPlaylist();
+  }
+
+  const removePlaylist = async (id) => {
+    await userHelper.removePlaylist(id);
+    this.refreshPlaylist();
+  }
+
 
   const handleClose = () => {
     props.setOpen(false);
   };
 
   const handleChange = (event) => {
-    setPlaylist(playlists.find((e) => e.id === event.target.value));
+    setPlaylist(playlistsToRender.find((e) => e.id === event.target.value));
   };
 
   const handleCloseSelect = () => {
@@ -61,10 +77,10 @@ export default function AddToPlaylist(props) {
   };
 
   const onSubmit = () => {
-      if(playlist.id) {
-        userHelper.addSongToPlaylist(props.songId, playlist.id);
-        handleClose();
-      }
+    if (playlist.id) {
+      addSongToPlaylist(props.songId, playlist.id)
+      handleClose();
+    }
   };
 
   const body = (
@@ -83,15 +99,15 @@ export default function AddToPlaylist(props) {
             onOpen={handleOpenSelect}
             value={playlist.songId}
             onChange={handleChange}
-            >
+          >
             <MenuItem value="">
-                <em> </em>
+              <em> </em>
             </MenuItem>
-            {playlists.map((row) => (
-                <MenuItem value={row.id}>{row.name}</MenuItem>
-            ))} 
-            
-            </Select>
+            {playlistsToRender.map((row) => (
+              <MenuItem value={row.id}>{row.name}</MenuItem>
+            ))}
+
+          </Select>
           <Button
             onClick={onSubmit}
             fullWidth

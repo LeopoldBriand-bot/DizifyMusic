@@ -42,15 +42,12 @@ export default class UserHelper {
         return bcrypt.compareSync(hash, bdd)
     }
 
-    async getPlaylistById(userId, playlistId) {
-        console.log(userId);
-        console.log(playlistId);
+    async getAllSongByPlaylistJoinId(userId, playlistId) {
 
         // Call HTTP 
         let songs = [];
         await axios.get(this.baseURI + `/playlist/getAllSongByPlaylistJoinId?playlistJoinId=${playlistId}`, { headers: this.headers })
             .then(res => {
-                console.log(res.data);
                 songs = res.data;
             })
 
@@ -65,16 +62,32 @@ export default class UserHelper {
         //     }]
         // }
     }
+
+    async getPlaylistNameByPlaylistJoinId(userId, playlistId) {
+
+        // Call HTTP 
+        let playlist = {
+            id: 0,
+            userId: 0,
+            name: "Generic PlayList Name",
+            isPublic: false,
+        };
+        await axios.get(this.baseURI + `/playlistJoin/getById?id=${playlistId}`, { headers: this.headers })
+            .then(res => {
+                playlist = res.data;
+            })
+
+        return playlist;
+    }
+
+
     async getPlaylists(userId) {
-        console.log(userId);
         // Call HTTP 
         let playlists = [];
         await axios.get(this.baseURI + `/playlistJoin/getAllByUserId?userId=${userId}`, { headers: this.headers })
             .then(res => {
-                console.log(res.data);
                 playlists = res.data;
             })
-        console.log(playlists);
         return playlists;
 
 
@@ -94,7 +107,7 @@ export default class UserHelper {
         // ]
     }
     async addPlaylist(userId, name) {
-        axios.post(this.baseURI + `/playlistJoin/save`,
+        await axios.post(this.baseURI + `/playlistJoin/save`,
             {
                 userId: userId,
                 name: name,
@@ -103,13 +116,13 @@ export default class UserHelper {
     }
 
     async removePlaylist(id) {
-        axios.post(this.baseURI + `/playlistJoin/delete`,
+        await axios.post(this.baseURI + `/playlistJoin/delete`,
             { id }, { headers: this.headers })
     }
 
     async addSongToPlaylist(songId, id) {
         console.log(songId, id)
-        axios.post(this.baseURI + `/playlist/save`,
+        await axios.post(this.baseURI + `/playlist/save`,
             {
                 playlistJoin: { id: id },
                 song: { id: songId }
@@ -118,7 +131,7 @@ export default class UserHelper {
 
     async removeSongFromPlaylist(songId, id) {
         console.log(songId, id)
-        axios.post(this.baseURI + `/playlist/delete`,
+        await axios.post(this.baseURI + `/playlist/delete`,
             { id }, { headers: this.headers })
     }
 

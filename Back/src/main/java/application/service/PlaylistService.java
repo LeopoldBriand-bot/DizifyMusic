@@ -16,14 +16,8 @@ public class PlaylistService {
     @Autowired
     PlaylistRepository playlistRepository;
 
-    public List<Song> getAllSongByPlaylistJoinId(Integer playlistJoinId){
-        List<Playlist> playlists = playlistRepository.getAllSongByPlaylistJoinId(playlistJoinId);
-        List<Song> songs = new ArrayList<Song>();
-
-        for (Playlist playlist : playlists) {
-            songs.add(playlist.song);
-        }
-        return songs;
+    public List<Playlist> getAllSongByPlaylistJoinId(Integer playlistJoinId){
+        return playlistRepository.getAllSongByPlaylistJoinId(playlistJoinId);
     }
 
     public List<Playlist> getAll(){ return playlistRepository.findAll(); }

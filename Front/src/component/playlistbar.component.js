@@ -10,6 +10,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { Link } from "react-router-dom";
+import { Button } from '@material-ui/core';
 
 const userHelper = new UserHelper();
 const userId = 1
@@ -23,15 +24,36 @@ class Playlist extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        openAddPlaylistModal: false
+      openAddPlaylistModal: false,
+      playlistsToRender: []
     }
+    this.refreshPlaylist();
   }
 
-  removePlaylist = (id) => {
-    userHelper.removePlaylist(id);
+  refreshPlaylist = async () => {
+    let playlists = await userHelper.getPlaylists(userId);
+    this.setState({
+      playlistsToRender: playlists
+    });
   }
 
-  
+  addPlaylist = async (name) => {
+    await userHelper.addPlaylist(userId, name);
+    this.refreshPlaylist();
+  }
+
+  removePlaylist = async (id) => {
+    await userHelper.removePlaylist(id);
+
+    this.refreshPlaylist();
+
+  }
+
+  openModal() {
+    this.setState({ openAddPlaylistModal: true });
+  }
+
+
   render() {
     return (
       <div className={this.props.classes.root}>
@@ -41,18 +63,21 @@ class Playlist extends Component {
               <QueueMusicIcon />
             </ListItemIcon>
             <ListItemText primary="PlayLists" />
-            <ListItemIcon button onClick={() => {this.setState({openAddPlaylistModal: true})}}>
+            <ListItemIcon button onClick={() => { this.openModal(); }}>
               <AddCircleOutlineIcon />
             </ListItemIcon>
-            <AddPlaylist open={this.state.openAddPlaylistModal} setOpen={(value) => {this.setState({openAddPlaylistModal: value})}}/>
+            <AddPlaylist open={this.state.openAddPlaylistModal} setOpen={(value) => { this.setState({ openAddPlaylistModal: value }) }} callback={this.addPlaylist} />
           </ListItem>
-          {userHelper.getPlaylists(userId).map((playlist, index) => (
-            <ListItem button key={playlist.name} component={Link} to={`/playlist/${playlist.id}`}>
-              <ListItemText primary={playlist.name} />
+          {this.state.playlistsToRender.map((playlist, index) => (
+
+            <ListItem key={playlist.id}>
+              <Button href={`/playlist/${playlist.id}`}>{playlist.name}</Button>
+
               <ListItemIcon button onClick={() => this.removePlaylist(playlist.id)}>
-                <DeleteForeverIcon/>
+                <DeleteForeverIcon />
               </ListItemIcon>
             </ListItem>
+
           ))}
         </List>
       </div>
