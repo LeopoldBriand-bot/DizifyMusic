@@ -44,6 +44,7 @@ export default function AddToPlaylist(props) {
   const [playlist, setPlaylist] = React.useState([]);
   const [openSelect, setOpenSelect] = React.useState(false);
 
+
   const refreshPlaylist = async () => {
     let playlists = await userHelper.getPlaylists(userId);
     setPlaylistsToRender(playlists);
@@ -51,12 +52,12 @@ export default function AddToPlaylist(props) {
 
   const addSongToPlaylist = async (songId, playlistId) => {
     await userHelper.addSongToPlaylist(songId, playlistId);
-    this.refreshPlaylist();
+    refreshPlaylist();
   }
 
   const removePlaylist = async (id) => {
     await userHelper.removePlaylist(id);
-    this.refreshPlaylist();
+    refreshPlaylist();
   }
 
 
@@ -73,6 +74,7 @@ export default function AddToPlaylist(props) {
   };
 
   const handleOpenSelect = () => {
+    refreshPlaylist();
     setOpenSelect(true);
   };
 
@@ -100,9 +102,11 @@ export default function AddToPlaylist(props) {
             value={playlist.songId}
             onChange={handleChange}
           >
-            <MenuItem value="">
-              <em> </em>
-            </MenuItem>
+            {playlistsToRender.length == 0 &&
+              <MenuItem value="">
+                <em> </em>
+              </MenuItem>
+            }
             {playlistsToRender.map((row) => (
               <MenuItem value={row.id}>{row.name}</MenuItem>
             ))}

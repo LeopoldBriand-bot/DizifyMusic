@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 export default function MusicList(props) {
   const classes = useStyles();
   const [addPlaylist, setAddPlaylist] = React.useState(false);
-
+  const [modalPlaylistId, setModalPlaylistId] = React.useState(0);
   const addToFavorites = (id) => {
     let userId = 1;
     userHelper.addToFavorites("song", userId, id);
@@ -37,6 +37,7 @@ export default function MusicList(props) {
 
   const addToPlaylist = (id) => {
     setAddPlaylist(true);
+    setModalPlaylistId(id);
   };
   const removeFromPlaylist = (id) => {
     let userId = 1;
@@ -105,10 +106,10 @@ export default function MusicList(props) {
                   </IconButton>
                 )}
               </TableCell>
-              <AddToPlaylist open={addPlaylist} setOpen={setAddPlaylist} songId={row.id} />
             </TableRow>
 
           ))}
+          <AddToPlaylist open={addPlaylist} setOpen={setAddPlaylist} songId={modalPlaylistId} />
         </TableBody>
       </Table>
     </TableContainer>
