@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import UserHelper from "../../dataHelpers/user-helper";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import CommonDataManager from '../../stores/data.store'
+
 
 const userHelper = new UserHelper();
 
@@ -39,7 +41,7 @@ const useStyles = makeStyles({
 export default function ArtistCard(props) {
   const classes = useStyles();
   const addToFavorites = () => {
-    let userId = 1;
+    let userId = CommonDataManager.getInstance().getUserID();
     userHelper.addToFavorites("artist", userId, props.artist.id);
   };
 

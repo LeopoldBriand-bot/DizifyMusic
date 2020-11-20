@@ -4,6 +4,7 @@ import UserHelper from "../dataHelpers/user-helper";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import UtilsHelper from "../dataHelpers/utils-helper";
+import CommonDataManager from '../stores/data.store'
 
 const userHelper = new UserHelper();
 const utilsHelper = new UtilsHelper();
@@ -17,11 +18,8 @@ const styles = {
 class Playlist extends Component {
   constructor(props) {
     super(props);
-    const {
-      match: { params },
-    } = this.props;
-    this.userId = 1;
     this.state = {
+      params: this.props.match.params,
       name: [],
       songs: []
     };
@@ -30,8 +28,8 @@ class Playlist extends Component {
 
   refreshState = async () => {
 
-    let playlist = await userHelper.getPlaylistNameByPlaylistJoinId(this.userId, this.props.match.params.playlistId);
-    let songsNotFormated = await userHelper.getAllSongByPlaylistJoinId(this.userId, this.props.match.params.playlistId);
+    let playlist = await userHelper.getPlaylistNameByPlaylistJoinId(CommonDataManager.getInstance().getUserID(), this.state.params.playlistId);
+    let songsNotFormated = await userHelper.getAllSongByPlaylistJoinId(CommonDataManager.getInstance().getUserID(), this.state.params.playlistId);
     let songs = songsNotFormated.map(e => {
       return { ...utilsHelper.mapSongs(e.song), playlistId: e.id };
     });

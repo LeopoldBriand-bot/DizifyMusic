@@ -11,45 +11,45 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Modal } from '@material-ui/core';
 import UserHelper from '../dataHelpers/user-helper';
-
+import CommonDataManager from '../stores/data.store'
 const useStyles = makeStyles((theme) => ({
-    paper: {
-        marginTop: theme.spacing(8),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: '#ffffff',
-        position: 'absolute',
-        width: 400,
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-      },
-      avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-      },
-      form: {
-        width: '100%', // Fix IE 11 issue.
-        marginTop: theme.spacing(3),
-      },
-      submit: {
-        margin: theme.spacing(3, 0, 2),
-      },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    background: '#ffffff',
+    position: 'absolute',
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 export default function SignUp(props) {
   const classes = useStyles();
 
-    // TODO : nickname
-    // TODO : bcript
-    const [isNickname, setIsNickname] = React.useState(false);
-    const [isPassword, setIsPassword] = React.useState(false);
-    const [isEmail, setIsEmail] = React.useState(false);
-    const [isSubmit, setIsSubmit] = React.useState(false);
-    const [nickname, setNickname] = React.useState('');
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
+  // TODO : nickname
+  // TODO : bcript
+  const [isNickname, setIsNickname] = React.useState(false);
+  const [isPassword, setIsPassword] = React.useState(false);
+  const [isEmail, setIsEmail] = React.useState(false);
+  const [isSubmit, setIsSubmit] = React.useState(false);
+  const [nickname, setNickname] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
   const regexNickname = new RegExp("^(?!\s*$).+");
   const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -57,42 +57,59 @@ export default function SignUp(props) {
 
   const handleClose = () => {
     props.setOpen(false);
+    setNickname('');
+    setEmail('');
+    setPassword('');
     setIsSubmit(false);
     setIsNickname(false);
     setIsEmail(false);
     setIsPassword(false);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
 
-    setNickname(Boolean(regexNickname.exec(nickname)));
+    setIsNickname(Boolean(regexNickname.exec(nickname)));
     setIsEmail(Boolean(regexEmail.exec(email)));
     setIsPassword(Boolean(regexPassword.exec(password)));
 
     if (Boolean(regexNickname.exec(nickname)) && Boolean(regexEmail.exec(email)) && Boolean(regexPassword.exec(password))) {
-        const helper = new UserHelper();
-        // const bcryptPassword = helper.encryptPassword(password);
-        // helper.createUser({nickname, email, bcryptPassword});
-        helper.createUser({nickname, email, password});
-        props.setAuth(true);
-        setNickname('');
-        setEmail('');
-        setPassword('');
-        handleClose()
+      const helper = new UserHelper();
+      // const bcryptPassword = helper.encryptPassword(password);
+      // helper.createUser({nickname, email, bcryptPassword});
+      let response = await helper.createUser({ nickname, email, password });
+      console.log("responceCreate : ", response);
+      if (response.c_error == 0) {
+        response = await helper.connectUser({ email, password });
+        console.log("responseConnect : ", response);
+        console.log("responseConnectTest : ", response.email == email);
+        if (response.email == email) {
+          CommonDataManager.getInstance().setStore({
+            userId: response.id,
+            username: response.username,
+            roles: response.roles,
+            authToken: response.accessToken
+          })
+          props.setAuth(true);
+          props.setAuth(true);
+        }
+      }
+      handleClose()
     } else {
-        setIsSubmit(true);
+      setIsSubmit(true);
     }
+
+
 
   };
 
   const handleNicknameChange = (event) => {
     setNickname(event.target.value);
   };
-  
+
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
-  
+
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
@@ -124,6 +141,7 @@ export default function SignUp(props) {
                 fullWidth
                 id="nickname"
                 label="Nickname"
+                value={nickname}
                 autoFocus
                 onChange={handleNicknameChange}
               />
@@ -138,6 +156,7 @@ export default function SignUp(props) {
                 id="email"
                 label="Email Address"
                 name="email"
+                value={email}
                 autoComplete="email"
                 onChange={handleEmailChange}
               />
@@ -153,6 +172,7 @@ export default function SignUp(props) {
                 label="Password"
                 type="password"
                 id="password"
+                value={password}
                 autoComplete="current-password"
                 onChange={handlePasswordChange}
               />

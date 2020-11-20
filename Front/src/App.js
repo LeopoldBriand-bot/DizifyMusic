@@ -6,7 +6,7 @@ import SideBar from "./component/sidebar.component";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import clsx from "clsx";
 import { withStyles } from "@material-ui/core/styles";
-
+import { UserProvider } from './stores/user.store'
 const drawerWidth = 240;
 
 const styles = {
@@ -38,7 +38,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
+      <UserProvider>
         <Router>
           <CssBaseline />
           <NavBar
@@ -59,7 +59,7 @@ class App extends Component {
             <Routing></Routing>
           </main>
         </Router>
-      </div>
+      </UserProvider>
     );
   }
 }

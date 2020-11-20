@@ -4,18 +4,26 @@ import axios from 'axios';
 
 import UtilsHelper from './utils-helper'
 
+import CommonDataManager from '../stores/data.store'
+
+const store = CommonDataManager.getInstance();
 const utilsHelper = new UtilsHelper();
 export default class AlbumHelper {
-    baseURI = "http://localhost:8080";
-
-    headers = {
-        "Access-Control-Allow-Origin": "*"
-    };
-
     constructor() {
 
+        this.baseURI = "http://localhost:8080";
+        this.headers = {
+            "Access-Control-Allow-Origin": "*",
+            Authorization: store.getAuthToken() ? "Bearer " + store.getAuthToken() : ""
+        };
     }
+
+    updateAuthToken() {
+        this.headers.Authorization = "Bearer " + store.getAuthToken();
+    }
+
     async getAllAlbums() {
+        this.updateAuthToken();
 
         // Call HTTP 
         let albums = [];

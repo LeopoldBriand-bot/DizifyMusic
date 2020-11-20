@@ -2,33 +2,64 @@
 import axios from 'axios';
 import UtilsHelper from './utils-helper'
 import bcrypt from 'bcryptjs';
+import { RepeatOneRounded } from '@material-ui/icons';
+import CommonDataManager from '../stores/data.store'
 
 const utilsHelper = new UtilsHelper();
-
+const store = CommonDataManager.getInstance();
 export default class UserHelper {
-
-
-    baseURI = "http://localhost:8080";
-
-    headers = {
-        "Access-Control-Allow-Origin": "*"
-    };
-
     constructor() {
 
+        this.baseURI = "http://localhost:8080";
+        this.headers = {
+            "Access-Control-Allow-Origin": "*",
+            Authorization: store.getAuthToken() ? "Bearer " + store.getAuthToken() : ""
+        };
     }
 
-    createUser(user) {
-        console.log(user);
+    updateAuthToken(token) {
+        if (token != null) {
+            this.headers.Authorization = "Bearer " + token;
+            store.setAuthToken(token);
+        }
     }
 
-    connectUser(user) {
+    async createUser(user) {
+        this.updateAuthToken();
+        let response = {
+            message: "Error: No response!",
+            c_error: -1
+        };
+        await axios.post(this.baseURI + `/auth/signup`,
+            {
+                nickName: user.nickname,
+                email: user.email,
+                password: user.password
+
+            }, { headers: this.headers }).then(res => {
+                response = res.data
+            })
+        return response;
+    }
+
+    async connectUser(user) {
         // TODO : appel BDD connexion user
         // TODO : recuperation token si valide tout mettre dans store
 
-        console.log(user);
+        let response = "SignInFail"
+        await axios.post(this.baseURI + `/auth/signin`,
+            {
+                email: user.email,
+                password: user.password
+
+            }, { headers: this.headers }).then(res => {
+                response = res.data;
+            })
+        this.updateAuthToken(response.accessToken);
+        return response;
     }
     disconnectUSer() {
+        this.updateAuthToken("");
         return {}
     }
 
@@ -43,6 +74,7 @@ export default class UserHelper {
     }
 
     async getAllSongByPlaylistJoinId(userId, playlistId) {
+        this.headers.Authorization = "Bearer " + store.getAuthToken();
 
         // Call HTTP 
         let songs = [];
@@ -64,6 +96,7 @@ export default class UserHelper {
     }
 
     async getPlaylistNameByPlaylistJoinId(userId, playlistId) {
+        this.headers.Authorization = "Bearer " + store.getAuthToken();
 
         // Call HTTP 
         let playlist = {
@@ -82,8 +115,10 @@ export default class UserHelper {
 
 
     async getPlaylists(userId) {
-        // Call HTTP 
+        this.headers.Authorization = "Bearer " + store.getAuthToken();
+        // Call HTTP
         let playlists = [];
+        console.log("11", userId);
         await axios.get(this.baseURI + `/playlistJoin/getAllByUserId?userId=${userId}`, { headers: this.headers })
             .then(res => {
                 playlists = res.data;
@@ -108,6 +143,7 @@ export default class UserHelper {
 
     }
     async addPlaylist(userId, name) {
+        this.headers.Authorization = "Bearer " + store.getAuthToken();
         await axios.post(this.baseURI + `/playlistJoin/save`,
             {
                 userId: userId,
@@ -117,11 +153,13 @@ export default class UserHelper {
     }
 
     async removePlaylist(id) {
+        this.headers.Authorization = "Bearer " + store.getAuthToken();
         await axios.post(this.baseURI + `/playlistJoin/delete`,
             { id }, { headers: this.headers })
     }
 
     async addSongToPlaylist(songId, id) {
+        this.headers.Authorization = "Bearer " + store.getAuthToken();
         console.log(songId, id)
         await axios.post(this.baseURI + `/playlist/save`,
             {
@@ -131,6 +169,7 @@ export default class UserHelper {
     }
 
     async removeSongFromPlaylist(songId, id) {
+        this.headers.Authorization = "Bearer " + store.getAuthToken();
         console.log(songId, id)
         await axios.post(this.baseURI + `/playlist/delete`,
             { id }, { headers: this.headers })
@@ -138,6 +177,7 @@ export default class UserHelper {
 
 
     async getFavorites(userId) {
+        this.headers.Authorization = "Bearer " + store.getAuthToken();
 
         // console.log(userId);
         // Call HTTP 
@@ -160,6 +200,7 @@ export default class UserHelper {
     }
 
     async addToFavorites(type, userId, id) {
+        this.headers.Authorization = "Bearer " + store.getAuthToken();
         // console.log(type, userId, id);
         switch (type) {
             case "album":

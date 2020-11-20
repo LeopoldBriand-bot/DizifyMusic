@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddPlaylist(props) {
-  const userId = 1;
   const classes = useStyles();
   const [name, setName] = React.useState({});
 

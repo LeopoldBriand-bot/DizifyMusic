@@ -9,6 +9,7 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from '@material-ui/core/styles';
+import CommonDataManager from '../stores/data.store'
 
 const userHelper = new UserHelper();
 
@@ -21,7 +22,7 @@ const styles = {
 class Favorites extends Component {
   constructor() {
     super();
-    let userId = 1;
+    let userId = CommonDataManager.getInstance().getUserID();
 
     this.state = {
       songs: [],

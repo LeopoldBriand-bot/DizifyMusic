@@ -8,6 +8,7 @@ import { Modal } from '@material-ui/core';
 import UserHelper from '../dataHelpers/user-helper';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import CommonDataManager from '../stores/data.store'
 
 const userHelper = new UserHelper();
 
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddToPlaylist(props) {
-  const userId = 1;
+
   const classes = useStyles();
   const [playlistsToRender, setPlaylistsToRender] = React.useState([]);
   const [playlist, setPlaylist] = React.useState([]);
@@ -46,7 +47,8 @@ export default function AddToPlaylist(props) {
 
 
   const refreshPlaylist = async () => {
-    let playlists = await userHelper.getPlaylists(userId);
+    console.log("13", CommonDataManager.getInstance().getUserID());
+    let playlists = await userHelper.getPlaylists(CommonDataManager.getInstance().getUserID());
     setPlaylistsToRender(playlists);
   }
 
