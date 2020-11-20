@@ -15,6 +15,8 @@ public class PlaylistJoinService {
     @Autowired
     PlaylistJoinRepository playlistJoinRepository;
 
+    public List<PlaylistJoin> getAllByUserId(Integer userId){ return playlistJoinRepository.getAllByUserId(userId); }
+
     public List<PlaylistJoin> getAll(){ return playlistJoinRepository.findAll(); }
 
     public PlaylistJoin getById(Integer id) { return playlistJoinRepository.getOne(id); }

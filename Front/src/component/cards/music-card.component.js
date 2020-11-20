@@ -80,21 +80,21 @@ export default function MusicCard(props) {
             <PlayArrowIcon className={classes.playIcon} />
           </IconButton>
           <IconButton aria-label="Add music to queue">
-            <QueueMusicIcon/>
+            <QueueMusicIcon />
           </IconButton>
           <IconButton aria-label="Options" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-            <MoreHorizIcon/>
+            <MoreHorizIcon />
           </IconButton>
           <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >
-                <MenuItem onClick={addToPlaylist}>Add to a playlist</MenuItem>
-                <MenuItem onClick={addToFavorites}>Add to favorites</MenuItem>
-            </Menu>
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={addToPlaylist}>Add to a playlist</MenuItem>
+            <MenuItem onClick={addToFavorites}>Add to favorites</MenuItem>
+          </Menu>
         </div>
       </div>
       <CardMedia
@@ -102,7 +102,7 @@ export default function MusicCard(props) {
         image={props.song.image}
         title={props.song.album}
       />
-      <AddToPlaylist open={addPlaylist} setOpen={setAddPlaylist} songId={props.song.id}/> 
+      <AddToPlaylist open={addPlaylist} setOpen={setAddPlaylist} songId={props.song.id} />
     </Card>
   );
 }

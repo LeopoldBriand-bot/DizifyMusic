@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Table(name = "playlists")
@@ -17,10 +18,10 @@ public class Playlist implements Serializable {
     @Column(name = "id", nullable = false)
     public Integer id;
 
-    @Column(name = "id_playlist")
-    private Integer idPlaylist;
+    @ManyToOne
+    private PlaylistJoin playlistJoin;
 
-    @Column(name = "song_id")
-    private Integer songId;
+    @ManyToOne
+    public Song song;
 
 }
