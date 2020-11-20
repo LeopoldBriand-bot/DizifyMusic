@@ -43,8 +43,8 @@ export default class UserHelper {
     }
 
     getPlaylistById(userId, playlistId) {
-        console.log(userId);
-        console.log(playlistId);
+        // console.log(userId);
+        // console.log(playlistId);
         return {
             songs: [{
                 name:'Harder, Better, Faster, Stronger', 
@@ -55,7 +55,7 @@ export default class UserHelper {
         }
     }
     getPlaylists(userId) {
-        console.log(userId);
+        // console.log(userId);
         return [
             {
                 id: 12,
@@ -63,7 +63,7 @@ export default class UserHelper {
             },
             {
                 id: 10,
-                name: "Playlist12"
+                name: "Playlist13"
             },
             {
                 id: 15,
@@ -85,12 +85,12 @@ export default class UserHelper {
     }
     async getFavorites(userId) {
 
-        console.log(userId);
+        // console.log(userId);
         // Call HTTP 
         let favorites = [];
         await axios.get(this.baseURI + `/favorite/getAllByUserId?userId=${userId}`, { headers: this.headers })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 favorites = res.data;
             })
 
@@ -106,7 +106,7 @@ export default class UserHelper {
     }
 
     async addToFavorites(type, userId, id) {
-        console.log(type, userId, id);
+        // console.log(type, userId, id);
         switch (type) {
             case "album":
                 axios.post(this.baseURI + `/favorite/save`, {

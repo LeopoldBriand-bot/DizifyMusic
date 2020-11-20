@@ -22,9 +22,9 @@ const useStyles = makeStyles({
   },
 });
 
-const handleClick = (event) => {
-  console.log(event);
-};
+// const handleClick = (event) => {
+//   console.log(event);
+// };
 
 export default function MusicList(props) {
   const classes = useStyles();
