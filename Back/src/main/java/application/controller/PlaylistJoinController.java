@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RequestMapping("/playlistJoin")
 @RestController
 public class PlaylistJoinController {
@@ -16,6 +17,9 @@ public class PlaylistJoinController {
 
         @Autowired
         PlaylistJoinService playlistJoinService;
+
+        @GetMapping("/getAllByUserId")
+        public List<PlaylistJoin> getAllByUserId(Integer userId){ return playlistJoinService.getAllByUserId(userId); }
 
         @GetMapping("/getAll")
         public List<PlaylistJoin> getAll(){ return playlistJoinService.getAll(); }
