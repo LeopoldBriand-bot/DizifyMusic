@@ -9,6 +9,12 @@ import CommonDataManager from '../stores/data.store'
 const store = CommonDataManager.getInstance();
 const utilsHelper = new UtilsHelper();
 export default class AlbumHelper {
+    baseURI = "http://api:8080";
+
+    headers = {
+        "Access-Control-Allow-Origin": "*"
+    };
+
     constructor() {
 
         this.baseURI = "http://localhost:8080";

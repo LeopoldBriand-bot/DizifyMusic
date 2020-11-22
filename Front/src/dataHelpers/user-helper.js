@@ -8,6 +8,14 @@ import CommonDataManager from '../stores/data.store'
 const utilsHelper = new UtilsHelper();
 const store = CommonDataManager.getInstance();
 export default class UserHelper {
+
+
+    baseURI = "http://api:8080";
+
+    headers = {
+        "Access-Control-Allow-Origin": "*"
+    };
+
     constructor() {
 
         this.baseURI = "http://localhost:8080";

@@ -8,6 +8,11 @@ import CommonDataManager from '../stores/data.store'
 const store = CommonDataManager.getInstance();
 const utilsHelper = new UtilsHelper();
 export default class SongHelper {
+    baseURI = "http://api:8080";
+
+    headers = {
+        "Access-Control-Allow-Origin": "*"
+    };
 
     constructor() {
         console.log(store.getAuthToken());
