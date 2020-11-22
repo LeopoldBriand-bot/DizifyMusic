@@ -28,7 +28,7 @@ services:
     restart: always
 
   front:
-    image: leopoldbriand/dizify:front-1.0.1
+    image: leopoldbriand/dizify:front-1.0.2
     container_name: front
     ports:
       - 3000:3000

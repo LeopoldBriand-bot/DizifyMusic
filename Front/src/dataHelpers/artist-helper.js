@@ -17,7 +17,7 @@ export default class ArtistHelper {
 
     constructor() {
 
-        this.baseURI = "http://localhost:8080";
+        this.baseURI = "http://api:8080";
         this.headers = {
             "Access-Control-Allow-Origin": "*",
             Authorization: store.getAuthToken() ? "Bearer " + store.getAuthToken() : ""
