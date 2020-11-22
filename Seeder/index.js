@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-var baseURI = "http://api:8080";
+var baseURI = "http://localhost:8080";
 
 var headers = {
     "Access-Control-Allow-Origin": "*"
